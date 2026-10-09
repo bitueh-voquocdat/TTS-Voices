@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#224fe5">
+  <meta name="description" content="Chuyển văn bản tiếng Anh thành giọng UK, nghe và tải MP3.">
+  <title>UK Voice Studio</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<main class="shell">
+  <header class="header"><div class="brand"><img src="/icon.svg" width="40" height="40" alt=""><div><h1>UK Voice Studio</h1><p>Văn bản tiếng Anh → giọng đọc UK</p></div></div><span class="badge">MP3</span></header>
+  <form id="studio" class="studio">
+    <fieldset id="inputs">
+      <legend class="sr-only">Văn bản và giọng đọc</legend>
+      <div class="section-label"><span>Giọng đọc</span><span class="muted">English · United Kingdom</span></div>
+      <div class="voices">
+        <label class="voice"><input type="radio" name="voice" value="en-GB-SoniaNeural" checked><span><strong>Sonia</strong><small>Nữ</small></span><i aria-hidden="true"></i></label>
+        <label class="voice"><input type="radio" name="voice" value="en-GB-RyanNeural"><span><strong>Ryan</strong><small>Nam</small></span><i aria-hidden="true"></i></label>
+        <label class="voice"><input type="radio" name="voice" value="en-GB-LibbyNeural"><span><strong>Libby</strong><small>Nữ</small></span><i aria-hidden="true"></i></label>
+        <label class="voice"><input type="radio" name="voice" value="en-GB-ThomasNeural"><span><strong>Thomas</strong><small>Nam</small></span><i aria-hidden="true"></i></label>
+      </div>
+      <div class="editor-title"><label for="text">Văn bản</label><div class="text-tools"><button id="import" type="button" class="text-button">Nhập TXT</button><button id="clear" type="button" class="text-button">Xóa</button></div></div>
+      <input id="file" class="sr-only" type="file" accept=".txt,text/plain" tabindex="-1">
+      <textarea id="text" lang="en-GB" placeholder="Type or paste your English text here…" maxlength="20000" spellcheck="true" aria-describedby="count privacy"></textarea>
+      <div class="editor-foot"><span id="privacy">Văn bản được gửi đến Microsoft để tạo giọng đọc.</span><span id="count">0 / 20.000</span></div>
+      <div class="settings">
+        <label for="rate"><span>Tốc độ đọc <output id="rate-value">0%</output></span><input id="rate" type="range" min="-50" max="50" step="5" value="0"></label>
+        <label for="pitch"><span>Cao độ <output id="pitch-value">0 Hz</output></span><input id="pitch" type="range" min="-50" max="50" step="5" value="0"></label>
+        <button type="button" id="reset" class="text-button">Đặt lại</button>
+      </div>
+    </fieldset>
+    <div class="action-row"><p id="status" role="status" aria-live="polite">Nhập văn bản để bắt đầu.</p><button id="cancel" type="button" class="secondary" hidden>Hủy</button><button id="generate" type="submit" class="primary">Tạo giọng đọc</button></div>
+    <progress id="progress" max="1" value="0" aria-label="Tiến độ tạo âm thanh" hidden></progress>
+  </form>
+  <section id="player" class="player" aria-label="Trình phát âm thanh" hidden>
+    <div class="player-heading"><div><h2>Âm thanh của bạn</h2><p id="audio-info"></p></div><a id="download" class="download" href="#" download="uk-voice.mp3">↓ Tải MP3</a></div>
+    <audio id="audio" preload="auto"></audio>
+    <div class="timeline"><span id="current">0:00</span><input id="seek" aria-label="Tua âm thanh" type="range" min="0" max="1" step="0.1" value="0"><span id="duration">0:00</span></div>
+    <div class="player-controls"><div class="transport">
+      <button id="restart" type="button" class="icon-button" title="Phát lại từ đầu" aria-label="Phát lại từ đầu">↺</button>
+      <button id="back" type="button" class="icon-button skip" title="Lùi 10 giây" aria-label="Lùi 10 giây">−10</button>
+      <button id="play" type="button" class="play" aria-label="Phát âm thanh">▶</button>
+      <button id="forward" type="button" class="icon-button skip" title="Tiến 10 giây" aria-label="Tiến 10 giây">+10</button>
+      <button id="loop" type="button" class="icon-button" title="Phát lặp" aria-label="Phát lặp" aria-pressed="false">⟳</button>
+    </div><div class="playback-settings"><label class="volume" for="volume"><span>Âm lượng</span><input id="volume" aria-label="Âm lượng" type="range" min="0" max="1" step="0.05" value="1"></label><label for="speed" class="sr-only">Tốc độ nghe</label><select id="speed" title="Tốc độ nghe"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select></div></div>
+    <p class="playback-note">Tốc độ nghe và âm lượng chỉ áp dụng khi phát; file MP3 giữ thiết lập lúc tạo.</p>
+  </section>
+  <noscript>Hãy bật JavaScript để tạo và tải âm thanh.</noscript>
+</main>
+</body>
+</html>
